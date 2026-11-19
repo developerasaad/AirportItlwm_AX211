@@ -51,6 +51,26 @@ void AirportItlwm::releaseAll()
 #ifndef AIRPORT_WCL
     OSSafeReleaseNULL(driverFaultReporter);
 #endif
+    if (_fWorkloop) {
+        /* Cancel the periodic sources BEFORE releasing the HAL they
+         * dereference on every tick. Previously fHalService was released
+         * first, leaving a window in which an in-flight watchdog or scan
+         * callback touched freed memory. */
+        if (watchdogTimer) {
+            watchdogTimer->cancelTimeout();
+            watchdogTimer->disable();
+            _fWorkloop->removeEventSource(watchdogTimer);
+            watchdogTimer->release();
+            watchdogTimer = NULL;
+        }
+        if (scanSource) {
+            scanSource->cancelTimeout();
+            scanSource->disable();
+            _fWorkloop->removeEventSource(scanSource);
+            scanSource->release();
+            scanSource = NULL;
+        }
+    }
     if (fHalService) {
         fHalService->release();
         fHalService = NULL;
@@ -61,21 +81,6 @@ void AirportItlwm::releaseAll()
             _fWorkloop->removeEventSource(_fCommandGate);
             _fCommandGate->release();
             _fCommandGate = NULL;
-        }
-        if (scanSource) {
-            scanSource->cancelTimeout();
-            scanSource->disable();
-            _fWorkloop->removeEventSource(scanSource);
-            scanSource->release();
-            scanSource = NULL;
-        }
-        if (fWatchdogWorkLoop && watchdogTimer) {
-            watchdogTimer->cancelTimeout();
-            fWatchdogWorkLoop->removeEventSource(watchdogTimer);
-            watchdogTimer->release();
-            watchdogTimer = NULL;
-            fWatchdogWorkLoop->release();
-            fWatchdogWorkLoop = NULL;
         }
         _fWorkloop->release();
         _fWorkloop = NULL;
@@ -115,10 +120,20 @@ eventHandler(struct ieee80211com *ic, int msgCode, void *data)
 
 void AirportItlwm::watchdogAction(IOTimerEventSource *timer)
 {
+    /* Runs on the main workloop, serialized with the RX/newstate/timeout
+     * paths (previously a separate workloop ran ieee80211_watchdog
+     * concurrently with the gate-serialized MLME state machine, and
+     * splnet() is a no-op in this port). Guard against teardown:
+     * releaseAll() cancels this timer before the HAL is released, but a
+     * callback already in flight must not touch freed memory or re-arm
+     * through a cleared member pointer. */
+    if (!fHalService)
+        return;
     struct _ifnet *ifp = &fHalService->get80211Controller()->ic_ac.ac_if;
-    (*ifp->if_watchdog)(ifp);
+    if (ifp->if_watchdog)
+        (*ifp->if_watchdog)(ifp);
 
-    watchdogTimer->setTimeoutMS(kWatchDogTimerPeriod);
+    timer->setTimeoutMS(kWatchDogTimerPeriod);
 }
 
 void AirportItlwm::fakeScanDone(OSObject *owner, IOTimerEventSource *sender)
@@ -342,14 +357,6 @@ bool AirportItlwm::start(IOService *provider)
         releaseAll();
         return false;
     }
-    fWatchdogWorkLoop = IOWorkLoop::workLoop();
-    if (fWatchdogWorkLoop == NULL) {
-        XYLog("init watchdog workloop fail\n");
-        fHalService->detach(pciNub);
-        super::stop(pciNub);
-        releaseAll();
-        return false;
-    }
     watchdogTimer = IOTimerEventSource::timerEventSource(this, OSMemberFunctionCast(IOTimerEventSource::Action, this, &AirportItlwm::watchdogAction));
     if (!watchdogTimer) {
         XYLog("init watchdog fail\n");
@@ -358,7 +365,17 @@ bool AirportItlwm::start(IOService *provider)
         releaseAll();
         return false;
     }
-    fWatchdogWorkLoop->addEventSource(watchdogTimer);
+    /* Run the watchdog on the main workloop (see watchdogAction): its
+     * MLME mutations must be serialized with everything else. */
+    if (_fWorkloop->addEventSource(watchdogTimer) != kIOReturnSuccess) {
+        XYLog("add watchdog to workloop fail\n");
+        watchdogTimer->release();
+        watchdogTimer = NULL;
+        fHalService->detach(pciNub);
+        super::stop(pciNub);
+        releaseAll();
+        return false;
+    }
     scanSource = IOTimerEventSource::timerEventSource(this, &fakeScanDone);
 #ifdef AIRPORT_WCL
     if (!scanSource || _fWorkloop->addEventSource(scanSource) != kIOReturnSuccess) {

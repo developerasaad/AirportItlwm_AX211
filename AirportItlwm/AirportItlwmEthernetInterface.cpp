@@ -123,7 +123,12 @@ setLinkState(IO80211LinkState state)
     if (state == kIO80211NetworkLinkUp) {
         ifnet_set_flags(getIfnet(), ifnet_flags(getIfnet()) | (IFF_UP | IFF_RUNNING), (IFF_UP | IFF_RUNNING));
     } else {
-        ifnet_set_flags(getIfnet(), ifnet_flags(getIfnet()) & ~(IFF_UP | IFF_RUNNING), 0);
+        /* Clear the carrier flag so the BSD side (configd / System Settings)
+         * does not keep reporting a live link after disassociation.
+         * IFF_UP (administrative state) is intentionally preserved, matching
+         * native macOS behavior; previously the zero mask made this call a
+         * no-op and en0 stayed IFF_RUNNING forever. */
+        ifnet_set_flags(getIfnet(), ifnet_flags(getIfnet()) & ~IFF_RUNNING, IFF_RUNNING);
     }
     return true;
 }

@@ -229,7 +229,6 @@ public:
 #else
     IO80211SkywalkInterface *fNetIf;
 #endif
-    IOWorkLoop *fWatchdogWorkLoop;
     ItlHalService *fHalService;
     
     //IO80211
