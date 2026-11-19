@@ -1,0 +1,132 @@
+name: Build AX211 Sequoia Debug
+
+# Single supported build configuration for this fork:
+#   Target  : MSI Modern 14 C12MO / Intel Wi-Fi 6E AX211 160 MHz
+#   OS      : macOS Sequoia 15.8.2 (Darwin 24.x)
+#   Arch    : x86_64
+#   Config  : Debug
+#   Product : AirportItlwm.kext (native Airport/Skywalk/WCL integration)
+#
+# Manual only. No matrix, no push/PR/schedule triggers, no Release,
+# no Sonoma/Tahoe, no duplicate packaging jobs.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: AirportItlwm Sequoia Debug (x86_64)
+    runs-on: macos-15-intel
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install MacKernelSDK
+        uses: actions/checkout@v4
+        with:
+          repository: acidanthera/MacKernelSDK
+          ref: 3f750085caa17ec3a7880f11c11bf4f48cd6a164
+          path: MacKernelSDK
+      - name: Build AirportItlwm (Sequoia Debug)
+        env:
+          PLATFORM: Sequoia
+          CONFIGURATION: Debug
+        run: |
+          set -euo pipefail
+          mkdir -p logs
+          xcodebuild -project itlwm.xcodeproj -scheme "AirportItlwm-$PLATFORM" \
+            -configuration "$CONFIGURATION" -jobs 3 ARCHS=x86_64 \
+            SYMROOT="$PWD/build/products" OBJROOT="$PWD/build/obj" \
+            CODE_SIGNING_ALLOWED=NO GIT_COMMIT="_$(git rev-parse --short HEAD)" \
+            build > "logs/AirportItlwm-$PLATFORM.log" 2>&1 || {
+            echo "--- compile diagnostics (error lines) ---"
+            grep -n "error:" "logs/AirportItlwm-$PLATFORM.log" | head -80 || true
+            echo "--- build log tail ---"
+            tail -300 "logs/AirportItlwm-$PLATFORM.log"
+            exit 1; }
+      - name: Verify kernel extension
+        env:
+          PLATFORM: Sequoia
+          CONFIGURATION: Debug
+        run: |
+          set -euo pipefail
+          kext="build/products/$CONFIGURATION/$PLATFORM/AirportItlwm.kext"
+          test -d "$kext" || { echo "FAIL: $kext missing"; exit 1; }
+          test -f "$kext/Contents/MacOS/AirportItlwm" || { echo "FAIL: kext binary missing"; exit 1; }
+          # Architecture must be x86_64 only (AX211 target is Intel macOS).
+          lipo -info "$kext/Contents/MacOS/AirportItlwm" | tee /tmp/lipo.txt
+          grep -q "x86_64" /tmp/lipo.txt || { echo "FAIL: wrong architecture"; exit 1; }
+          grep -q "arm64" /tmp/lipo.txt && { echo "FAIL: arm64 leaked into build"; exit 1; } || true
+          # Bundle metadata sanity.
+          plutil -lint "$kext/Contents/Info.plist"
+          plutil -convert xml1 -o /tmp/kext-info.plist "$kext/Contents/Info.plist"
+          bundle_id=$(plutil -extract CFBundleIdentifier raw "$kext/Contents/Info.plist")
+          version=$(plutil -extract CFBundleVersion raw "$kext/Contents/Info.plist")
+          echo "bundle_id=$bundle_id version=$version"
+          [ "$bundle_id" = "com.zxystd.AirportItlwm" ] || { echo "FAIL: unexpected bundle id"; exit 1; }
+          # Required kext libraries present.
+          for lib in com.apple.iokit.IO80211Family com.apple.kpi.libkern com.apple.kpi.iokit; do
+            grep -q "<key>$lib</key>" /tmp/kext-info.plist || { echo "FAIL: missing OSBundleLibrary $lib"; exit 1; }
+            echo "lib $lib -> present"
+          done
+          # Sequoia native integration must link IOSkywalkFamily and corecapture.
+          grep -q "<key>com.apple.iokit.IOSkywalkFamily</key>" /tmp/kext-info.plist || { echo "FAIL: Sequoia build must link IOSkywalkFamily"; exit 1; }
+          grep -q "<key>com.apple.driver.corecapture</key>" /tmp/kext-info.plist || { echo "FAIL: Sequoia build must link corecapture"; exit 1; }
+          echo "sequoia skywalk/corecapture linkage -> OK"
+          # Firmware is embedded in the Mach-O (FwBinary.cpp, zlib-compressed).
+          # Verify the AX211-relevant Gen3 firmware families are embedded.
+          # Binary size floor is 4MB: the reduced driver embeds only the iwlwifi-*
+          # (AX21x family) firmware after the iwm/iwn firmware was removed, so the
+          # binary is correctly ~7MB (down from ~16MB baseline). The firmware-
+          # strings check below is the authoritative verification.
+          binfile="$kext/Contents/MacOS/AirportItlwm"
+          fwbytes=$(stat -f %z "$binfile")
+          echo "binary_size=$fwbytes"
+          [ "$fwbytes" -gt 4000000 ] || { echo "FAIL: binary too small to contain firmware"; exit 1; }
+          strings "$binfile" > /tmp/fw-strings.txt
+          for fw in iwlwifi-so-a0-gf-a0-68 iwlwifi-ty-a0-gf-a0-68 iwlwifi-so-a0-gf4-a0-68 iwlwifi-so-a0-hr-b0-68 iwlwifi-so-a0-jf-b0-68; do
+            grep -q "$fw" /tmp/fw-strings.txt || { echo "FAIL: firmware $fw not embedded"; exit 1; }
+            echo "fw $fw -> embedded"
+          done
+          # AX211-family PCI device IDs must be present in the matching table.
+          for devid in 0x51F08086 0x51F18086 0x54F08086 0x7E408086 0x7F708086; do
+            grep -q "$devid" "$kext/Contents/Info.plist" || { echo "FAIL: AX211 device id $devid missing from IOPCIMatch"; exit 1; }
+            echo "devid $devid -> matched"
+          done
+          # Record build identity and checksums.
+          echo "BUILD_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "BUILD_SHORT_SHA=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+          shasum -a 256 "$binfile" | tee "logs/AirportItlwm-bin.sha256"
+          nm -u "$binfile" | head -200 > /tmp/undef.txt || true
+          echo "undefined_symbol_count=$(wc -l < /tmp/undef.txt)"
+      - name: Package kernel extension
+        env:
+          PLATFORM: Sequoia
+          CONFIGURATION: Debug
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          products="$PWD/build/products/$CONFIGURATION"
+          version=$(awk '/MODULE_VERSION =/ {gsub(/;/, "", $3); print $3; exit}' itlwm.xcodeproj/project.pbxproj)
+          short_sha=$(git rev-parse --short HEAD)
+          suffix="v${version}-AX211-Sequoia-Debug-${short_sha}"
+          ditto -c -k --keepParent "$products/$PLATFORM/AirportItlwm.kext" "artifacts/AirportItlwm-${suffix}.zip"
+          shasum -a 256 "artifacts/AirportItlwm-${suffix}.zip" > "artifacts/AirportItlwm-${suffix}.zip.sha256"
+          cp "logs/AirportItlwm-bin.sha256" "artifacts/AirportItlwm-${suffix}.bin.sha256" 2>/dev/null || true
+          echo "ARTIFACT_SUFFIX=${suffix}" >> "$GITHUB_ENV"
+          ls -la artifacts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AirportItlwm-Sequoia-Debug
+          path: artifacts/AirportItlwm-*.zip*
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-logs
+          path: logs

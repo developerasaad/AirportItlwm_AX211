@@ -1,0 +1,284 @@
+{
+ "generated": "2026-11-18T18:16:27Z",
+ "evidence_items": [
+  {
+   "id": "EV-001",
+   "type": "git-commit",
+   "description": "Audited repo baseline commit (pre-reduction): laobamac 7204c69 imported as 'baseline: fresh laobamac upstream (7204c69) for AX211 Sequoia Debug'; CI run 44135504957 built it; tag ax211-baseline-validated points here.",
+   "locator": "/home/z/my-project/AirportITLWM @ aa193163c2a8c36fbaa86fea2113e7f74e4fdf96 (short aa19316)",
+   "sha256_or_ref": "aa193163c2a8c36fbaa86fea2113e7f74e4fdf96",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-002",
+   "type": "git-commit",
+   "description": "Built reduced commit: 'ci(verify): lower binary-size floor to 4MB for reduced firmware payload' - direct parent of tag v2.4.0-ax211-reduced; the commit the shipped kext was actually built from (CI run 44145096042).",
+   "locator": "/home/z/my-project/AirportITLWM @ f588ecd5fb396b0971fb73e3014f95aff8ec5d7a (short f588ecd)",
+   "sha256_or_ref": "f588ecd5fb396b0971fb73e3014f95aff8ec5d7a",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-003",
+   "type": "git-commit",
+   "description": "Audited repo HEAD (docs-only: 'docs: record AX211 reduced-build state, measurements, and comparison vs baseline'); tag v2.4.0-ax211-reduced points here; no CI run exists for this commit (dispatch-only workflow, never dispatched).",
+   "locator": "/home/z/my-project/AirportITLWM @ e4857ff53a3dfbc7d9eddf41b6d92a94b9b64b54 (short e4857ff, HEAD, branch main, tree clean)",
+   "sha256_or_ref": "e4857ff53a3dfbc7d9eddf41b6d92a94b9b64b54",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-004",
+   "type": "git-tag",
+   "description": "Tag ax211-baseline-validated (annotated; tag object fb957608a741ae821e9a8e0e266adfd25acdc68d) dereferencing to the baseline commit aa19316.",
+   "locator": "/home/z/my-project/AirportITLWM tag ax211-baseline-validated -> aa193163c2a8c36fbaa86fea2113e7f74e4fdf96",
+   "sha256_or_ref": "aa193163c2a8c36fbaa86fea2113e7f74e4fdf96",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-005",
+   "type": "git-tag",
+   "description": "Tag v2.4.0-baseline-ax211 (lightweight), pointing at the baseline-era docs commit 26a0c8c one commit above aa19316; its release asset was built from aa19316 (see EV-011).",
+   "locator": "/home/z/my-project/AirportITLWM tag v2.4.0-baseline-ax211 -> 26a0c8cb537333884c6cd59b47bd5480438dad7e",
+   "sha256_or_ref": "26a0c8cb537333884c6cd59b47bd5480438dad7e",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-006",
+   "type": "git-tag",
+   "description": "Tag v2.4.0-ax211-reduced (lightweight) == HEAD e4857ff; prerelease published 2026-11-17T18:16:46Z with asset built from parent f588ecd (docs-only difference; byte-identical asset to CI run 26).",
+   "locator": "/home/z/my-project/AirportITLWM tag v2.4.0-ax211-reduced -> e4857ff53a3dfbc7d9eddf41b6d92a94b9b64b54",
+   "sha256_or_ref": "e4857ff53a3dfbc7d9eddf41b6d92a94b9b64b54",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-007",
+   "type": "ci-run",
+   "description": "CI run 22 'Build AX211 Sequoia Debug' (workflow_dispatch), head aa19316, conclusion success - the baseline (pre-reduction) build; created 2026-11-17T17:18:23Z; artifacts retained (baseline kext zip + build logs).",
+   "locator": "developerasaad/AirportITLWM, workflow 'Build AX211 Sequoia Debug' (.github/workflows/main.yml), run id 44135504957, head_sha aa193163c2a8c36fbaa86fea2113e7f74e4fdf96",
+   "sha256_or_ref": "run 44135504957 @ aa193163c2a8c36fbaa86fea2113e7f74e4fdf96",
+   "collected": "2026-11-17",
+   "sanitized": true
+  },
+  {
+   "id": "EV-008",
+   "type": "ci-run",
+   "description": "CI run 26 'Build AX211 Sequoia Debug' (workflow_dispatch), head f588ecd, conclusion success - the reduced build: all 11 steps green (checkout, MacKernelSDK @3f75008, build, verify, package, 2x upload-artifact) on runner macos-15-intel; job 18:11:18Z->18:12:55Z (1m37s); xcodebuild -scheme AirportItlwm-Sequoia -configuration Debug ARCHS=x86_64, 120 warnings 0 errors, SDK MacOSX15.5, Xcode 16.4/16F6; verify step passed (x86_64-only, plutil lint, bundle id, 9 OSBundleLibraries, binary > 4,000,000 B, 5 firmware strings, 5 AX211 PCI IDs, sha256 recorded).",
+   "locator": "developerasaad/AirportITLWM, workflow 'Build AX211 Sequoia Debug', run id 44145096042, run_attempt 1, head_sha f588ecd5fb396b0971fb73e3014f95aff8ec5d7a, created 2026-11-17T18:11:13Z; artifacts: AirportItlwm-Sequoia-Debug (id 14355752931) + build-logs (id 14356212093), expire 2027-02-15T18:11:14Z; mirrored to refs/ci-artifacts/ (runs.json, artifacts-run26.json, releases.json, kext-artifact/, logs-artifact/, release-reduced.zip)",
+   "sha256_or_ref": "run 44145096042 @ f588ecd5fb396b0971fb73e3014f95aff8ec5d7a",
+   "collected": "2026-11-17",
+   "sanitized": true
+  },
+  {
+   "id": "EV-009",
+   "type": "artifact",
+   "description": "Reduced-build kext zip AirportItlwm-v2.4.0-AX211-Sequoia-Debug-f588ecd.zip, 6,823,999 B (inner ditto zip; outer GitHub artifact 6,821,833 B). sha256 verified against CI .sha256 sidecar and against the published release asset (byte-identical) - chain of custody per 21-ci-artifact-verification.md.",
+   "locator": "refs/ci-artifacts/kext-artifact/AirportItlwm-v2.4.0-AX211-Sequoia-Debug-f588ecd.zip (GitHub artifact 14355752931 / release asset v2.4.0-ax211-reduced)",
+   "sha256_or_ref": "da628dc5a26a733e6591cc69d85e9547de4a88ff291d066e48bb42b681e0f4fa",
+   "collected": "2026-11-17",
+   "sanitized": true
+  },
+  {
+   "id": "EV-010",
+   "type": "artifact",
+   "description": "Reduced-build kext executable AirportItlwm.kext/Contents/MacOS/AirportItlwm, 7,622,312 B, mode 755; Mach-O x86_64 kext bundle, unsigned. sha256 from CI build-logs sidecar AirportItlwm-bin.sha256; re-verified during AUDIT-6b against the extracted artifact (matches). README build record states exactly 7,622,312 B (7.27 MB) - exact match.",
+   "locator": "refs/ci-artifacts/kext-artifact/extracted/AirportItlwm.kext/Contents/MacOS/AirportItlwm (sidecar: refs/ci-artifacts/logs-artifact/AirportItlwm-bin.sha256)",
+   "sha256_or_ref": "30a3ce590b8c137faa0e7f593733bacb15dd1c1c2e5f98773b4f6b350a6b674a",
+   "collected": "2026-11-17",
+   "sanitized": true
+  },
+  {
+   "id": "EV-011",
+   "type": "artifact",
+   "description": "Baseline (pre-reduction) kext zip AirportItlwm-v2.4.0-AX211-Sequoia-Debug-aa19316.zip, 15,130,646 B, from CI run 22; sha256 verified against its .sha256 sidecar. Baseline kext executable is 16,262,720 B (reduction delta -53.13%); its sha256 was not recorded in the audit reports and was computed during AUDIT-6b consolidation from the retained artifact.",
+   "locator": "refs/ci-artifacts/baseline/AirportItlwm-v2.4.0-AX211-Sequoia-Debug-aa19316.zip (+ extracted/AirportItlwm.kext; baseline binary hash aafb5f8e1a9b077118a7796092a57c3d849f2e7e4b7a7dcf0185c4eb13110214)",
+   "sha256_or_ref": "dd32af74c199f98ed7cc0c9fc950f548138631048740226492857984c850d90b",
+   "collected": "2026-11-17",
+   "sanitized": true
+  },
+  {
+   "id": "EV-012",
+   "type": "source-snapshot",
+   "description": "Audited working tree (reduced fork) at HEAD e4857ff, branch main, working tree clean: 180 source files (*.cpp/*.hpp/*.c/*.h/*.plist), 83,830 C/C++/H lines; only hal_iwx HAL (4 files); itlwm/firmware/ = 15 blobs (12 .ucode + 3 .pnvm, 16,700,476 B raw); single buildable target AirportItlwm-Sequoia (Debug+Release configs). Scope of all AUDIT-2 source audits.",
+   "locator": "/home/z/my-project/AirportITLWM @ e4857ff53a3dfbc7d9eddf41b6d92a94b9b64b54 (git status clean)",
+   "sha256_or_ref": "e4857ff53a3dfbc7d9eddf41b6d92a94b9b64b54",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-013",
+   "type": "reference-clone",
+   "description": "Upstream laobamac/itlwm full clone (858 commits) checked out to pinned baseline 7204c69 'Merge pull request #36 from mingww64/fix/wpa3-transition-and-amsdu' (tag v2.4.0-alpha, dated 2026-11-01); also the diff baseline for reduction accounting (git diff 7204c69..HEAD) and for all inherited-vs-introduced determinations (REF-015).",
+   "locator": "refs/upstream-itlwm (git-ignored) @ 7204c69d1bfa7f5cc0f7864e08fb03e55d0ec29e",
+   "sha256_or_ref": "7204c69d1bfa7f5cc0f7864e08fb03e55d0ec29e",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-014",
+   "type": "reference-clone",
+   "description": "retropineaple/ForbiddenItlwm shallow clone (depth 1), 0.6.0-beta.2, snapshot 2026-11-18; AI-assisted project (openly disclosed); read-only comparison, no code copied.",
+   "locator": "refs/ForbiddenItlwm (git-ignored) @ 6e151958dd1b5348c586e0efc22a2f9ed5158591 (short 6e15195)",
+   "sha256_or_ref": "6e151958dd1b5348c586e0efc22a2f9ed5158591",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-015",
+   "type": "reference-clone",
+   "description": "Ersiter/Eric-AirportItlwm shallow clone (depth 1), snapshot 2026-11-16; Wi-Fi 7 (BE200/BE201) + SAE/6 GHz experimental fork; read-only comparison, no code copied.",
+   "locator": "refs/Eric-AirportItlwm (git-ignored) @ e258fb872f449291e038df1a8fa80255206d5c35 (short e258fb8)",
+   "sha256_or_ref": "e258fb872f449291e038df1a8fa80255206d5c35",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-016",
+   "type": "reference-clone",
+   "description": "ElicoftZ/AirportItlwm-AX211 shallow clone (depth 1), snapshot 2026-10-14 (oldest, 0.6-era); experimental AX211/Sequoia hardening fork; read-only comparison, no code copied.",
+   "locator": "refs/AirportItlwm-AX211 (git-ignored) @ 030ef90b17d3d99a12f4415fec66f063dff111a5 (short 030ef90)",
+   "sha256_or_ref": "030ef90b17d3d99a12f4415fec66f063dff111a5",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-017",
+   "type": "reference-clone",
+   "description": "torvalds/linux sparse clone (drivers/net/wireless/intel/iwlwifi incl. cfg/, mvm/, mld/, pcie/, fw/, mei/; net/mac80211/; net/wireless/), snapshot 2026-11-17; Linux iwlwifi reference for AUDIT-2d (LINUX-001..020).",
+   "locator": "refs/linux-iwlwifi (git-ignored) @ 20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca (short 20eef29)",
+   "sha256_or_ref": "20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca",
+   "collected": "2026-11-17",
+   "sanitized": true
+  },
+  {
+   "id": "EV-018",
+   "type": "reference-clone",
+   "description": "kernel.org linux-firmware blobless clone (WHENCE metadata), snapshot 2026-11-18; firmware-currency evidence (WHENCE: so-a0-gf-a0 line up to API 89 v86.a67023b2.0; API 68 pruned).",
+   "locator": "refs/linux-firmware (git-ignored) @ 747bdda274d0d0dce0c7c4eb01977a1270ca7163 (short 747bdda)",
+   "sha256_or_ref": "747bdda274d0d0dce0c7c4eb01977a1270ca7163",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-019",
+   "type": "report",
+   "description": "AUDIT-1 repo-state verification report (git state, tags, tree inventory, firmware inventory, Xcode targets, PCI IDs, reference clones, anomalies) - source of REPO-001..004.",
+   "locator": "research/ax211-audit/00-repo-state.md (mirror: download/00-repo-state.md)",
+   "sha256_or_ref": "d3f58dad92aa68638736c570863f75607a4aafa4c10a2c926d0723619de7f740",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-020",
+   "type": "report",
+   "description": "AUDIT-2a IWX HAL deep forensic source audit (itlwm/hal_iwx 100% coverage) - source of DRV-IWX-001..025.",
+   "locator": "research/ax211-audit/10-iwx-hal-audit.md (mirror: download/10-iwx-hal-audit.md)",
+   "sha256_or_ref": "280e9bf73eca8dd7cf73b659529095ed98e2267e80a7c90b9a4ff1138670f8be",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-021",
+   "type": "report",
+   "description": "AUDIT-2b native macOS integration layer audit (AirportItlwm/WCL, Skywalk, 15.8.2) - source of DRV-AP-001..028.",
+   "locator": "research/ax211-audit/11-airport-integration-audit.md (mirror: download/11-airport-integration-audit.md)",
+   "sha256_or_ref": "8a91f02dbb127431df16e9e42c5c02de006a4f1a67a62ca40267874170503cd9",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-022",
+   "type": "report",
+   "description": "AUDIT-2c-1 itl80211 control-plane forensic audit (scan/association/roaming/node lifecycle) - source of DRV-11C-001..025.",
+   "locator": "research/ax211-audit/12-itl80211-controlplane-audit.md (mirror: download/12-itl80211-controlplane-audit.md)",
+   "sha256_or_ref": "9cf2e2316095b643fe3905dcfa46882d077b50c6ba82afcc7e24e79698d0b434",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-023",
+   "type": "report",
+   "description": "AUDIT-2c-2 itl80211 data-plane & security-layer forensic audit (crypto, rate adaptation, aggregation, power save, regulatory) - source of DRV-11D-001..025.",
+   "locator": "research/ax211-audit/13-itl80211-dataplane-audit.md (mirror: download/13-itl80211-dataplane-audit.md)",
+   "sha256_or_ref": "ef55bdd2d18f07afe12a50e129c69b0a57367a6a629f087cfd105a1b5e65ab94",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-024",
+   "type": "report",
+   "description": "AUDIT-2d Linux iwlwifi source-level analysis for AX211 (so-a0-gf-a0) + capability correspondence table - source of LINUX-001..020.",
+   "locator": "research/ax211-audit/20-linux-iwlwifi-analysis.md (mirror: download/20-linux-iwlwifi-analysis.md)",
+   "sha256_or_ref": "cf284d682363870f7d8c3fb9bc7029df310433c2ae2187f344035cb3ff2e9bdc",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-025",
+   "type": "report",
+   "description": "AUDIT-2e CI artifact verification via GitHub Actions API (26-run history, sha256 chain of custody, releases) - source of CI-001..010; artifact hash source for EV-009/EV-010/EV-011.",
+   "locator": "research/ax211-audit/21-ci-artifact-verification.md (mirror: download/21-ci-artifact-verification.md)",
+   "sha256_or_ref": "5c710c213c9650dc3f2e1f6ddc5318ec40357b15470986d477aa5981eb9be07e",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-026",
+   "type": "report",
+   "description": "AUDIT-3 reference-fork comparison (ForbiddenItlwm / Eric-AirportItlwm / AirportItlwm-AX211 vs upstream 7204c69) - source of REF-001..015.",
+   "locator": "research/ax211-audit/22-reference-forks-analysis.md (mirror: download/22-reference-forks-analysis.md)",
+   "sha256_or_ref": "80e12f30a64e83b97c5d8fe94291e12c851778fa81f41443f3fb755865822c70",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-027",
+   "type": "tool",
+   "description": "Diagnostic kit README v1: owner-run read-only collectors for macOS Sequoia 15.8.2 and Ubuntu 24.x; sanitization spec (SSID/BSSID/IP/serial/hostname pseudonyms) and evidence-to-finding mapping table (DRV-11C-002, DRV-IWX-011, DRV-AP-011, DRV-11D-003, DRV-11D-001, DRV-AP-006/007, DRV-11C-003) - referenced by findings.json runtime_confirmation fields.",
+   "locator": "research/ax211-audit/tools/README.md (mirror: download/tools/README.md)",
+   "sha256_or_ref": "71424d7d2bdc98dd0428616a634b13204f8ac13494ff76791bdb1b9f095e9028",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-028",
+   "type": "tool",
+   "description": "macOS Sequoia collector script (no root; probes 01-10 incl. 06-wifi-state, 08-kernel-log 2h window, 09-power); produces AX211-MACOS-EVIDENCE-<UTC>.tar.gz with REDACTION-LOG.txt.",
+   "locator": "research/ax211-audit/tools/macos-diagnostics.sh (mirror: download/tools/macos-diagnostics.sh)",
+   "sha256_or_ref": "4d0f322a1c857dc39e58141309c954db640fe8f1857f2cacfff48a0ebb14decf",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-029",
+   "type": "tool",
+   "description": "Ubuntu 24.x collector script (no root; probes 01-11 incl. 04-wifi-caps for 6 GHz channel evidence, 05/07 known-good baseline); produces AX211-UBUNTU-EVIDENCE-<UTC>.tar.gz with REDACTION-LOG.txt.",
+   "locator": "research/ax211-audit/tools/ubuntu-diagnostics.sh (mirror: download/tools/ubuntu-diagnostics.sh)",
+   "sha256_or_ref": "89e45c6f53dc33365587007d10930c8a03ca44641e490ac745715685c92acf28",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-030",
+   "type": "tool",
+   "description": "Optional privileged (root, read-only) diagnostic command list - run by hand only; excluded from the unprivileged bundle.",
+   "locator": "research/ax211-audit/tools/OPTIONAL-privileged.md (mirror: download/tools/OPTIONAL-privileged.md)",
+   "sha256_or_ref": "2da5275bd09326500e6f974d806dbd7d11689921c65c55d608ce839c3d15b01b",
+   "collected": "2026-11-18",
+   "sanitized": true
+  },
+  {
+   "id": "EV-031",
+   "type": "tool",
+   "description": "Optional privileged-list companion (redaction extra-strings mechanism for the optional probes).",
+   "locator": "research/ax211-audit/tools/OPTIONAL-privileged-list.md (mirror: download/tools/OPTIONAL-privileged-list.md)",
+   "sha256_or_ref": "50c4783b8789e59651fb372ba989175ca70a3f60d290c6615d1a598ae84f83fa",
+   "collected": "2026-11-18",
+   "sanitized": true
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+.DS_Store
+DerivedData
+build
+xcuserdata
+project.xcworkspace
+FwBinary.cpp
+*.pyc
+MacKernelSDK
+
+# --- sandbox workspace overlay (never commit) ---
+.ghtoken
+refs/
+skills/
+download/
+upload/
+zscripts/
+Caddyfile
+.zscripts/
+tool-results/
+ci-logs/
+.staging/
+.backups/
+.env*
+dev.log
+dev.out.log
+node_modules/
