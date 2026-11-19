@@ -524,7 +524,7 @@ static const char *iwx_rs_pretty_ant(u8 ant)
         [IWX_ANT_AB]   = "AB",
     };
 
-    if (ant > ARRAY_SIZE(ant_name))
+    if (ant >= ARRAY_SIZE(ant_name))
         return "UNKNOWN";
 
     return ant_name[ant];
@@ -540,7 +540,7 @@ static const char *iwx_rs_pretty_bw(u8 bw)
         "320Mhz",
     };
 
-    if (bw > ARRAY_SIZE(pretty_bw))
+    if (bw >= ARRAY_SIZE(pretty_bw))
         return "UNKNOWN";
 
     return pretty_bw[bw];
@@ -1252,8 +1252,12 @@ iwx_ctxt_info_gen3_init(struct iwx_softc *sc, const struct iwx_fw_sects *fws)
     
     iwx_set_ltr(sc);
     
+    /* Jump to the fail labels instead of returning early: the three DMA
+     * allocations below (iml/prph_info/prph_scratch) must be released when
+     * this path bails, otherwise each failed init attempt leaks them and
+     * clobbers the live pointers on the next attempt. */
     if (!iwx_nic_lock(sc))
-        return EBUSY;
+        goto fail1;
     iwx_write_umac_prph(sc, IWX_UREG_CPU_INIT_RUN, 1);
     iwx_nic_unlock(sc);
     
@@ -2162,10 +2166,15 @@ iwx_load_pnvm(struct iwx_softc *sc)
         return 0;
     
     if (!iwx_read_pnvm(sc)) {
-        goto out;
-    };
+        /* No usable PNVM section for this SKU. Do not ring the PNVM
+         * doorbell and do not wait: without a loaded section the firmware
+         * never sends PNVM_INIT_COMPLETE_NTFY, so the previous code blocked
+         * the command gate for the full 2 s timeout on every init attempt
+         * and then propagated a spurious failure into the init retry loop.
+         * Continue with the firmware's built-in defaults instead. */
+        return 0;
+    }
     
-out:
     sc->sc_init_complete &= ~IWX_PNVM_COMPLETE;
     /* kick the doorbell */
     if (iwx_nic_lock(sc)) {
@@ -6910,7 +6919,9 @@ iwx_tx_fill_cmd(struct iwx_softc *sc, struct iwx_node *in,
         }
     } else if (IWX_RIDX_IS_CCK(ridx))
         rate_flags |= IWX_RATE_MCS_CCK_MSK_V1;
-    XYLog("%s hwrate: %d ridx: %d rate: %d minrate: %d\n", __FUNCTION__, hwrate, ridx, iwx_ridx2rate(rs, ridx) & IEEE80211_RATE_VAL, ieee80211_min_basic_rate(ic));
+    /* Per-frame logging removed: this helper runs for every transmitted
+     * frame on the command gate; a kprintf here (with two function calls
+     * in the format arguments) was unconditional driver-wide overhead. */
     *rate_n_flags = htole32(rate_flags | hwrate);
     
     return rinfo;
