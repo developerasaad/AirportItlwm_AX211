@@ -1,0 +1,1162 @@
+[
+ {
+  "path": "AirportItlwm/AirportAWDL.cpp",
+  "category": "inactive-src",
+  "lines": 58
+ },
+ {
+  "path": "AirportItlwm/AirportItlwm.cpp",
+  "category": "inactive-src",
+  "lines": 1045
+ },
+ {
+  "path": "AirportItlwm/AirportItlwm.hpp",
+  "category": "header",
+  "lines": 287
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmEthernetInterface.cpp",
+  "category": "active-src",
+  "lines": 201
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmEthernetInterface.hpp",
+  "category": "header",
+  "lines": 57
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmInterface.cpp",
+  "category": "inactive-src",
+  "lines": 50
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmInterface.hpp",
+  "category": "header",
+  "lines": 34
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmSkywalkInterface.cpp",
+  "category": "active-src",
+  "lines": 1078
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmSkywalkInterface.hpp",
+  "category": "header",
+  "lines": 486
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmV2.cpp",
+  "category": "active-src",
+  "lines": 1386
+ },
+ {
+  "path": "AirportItlwm/AirportItlwmV2.hpp",
+  "category": "header",
+  "lines": 289
+ },
+ {
+  "path": "AirportItlwm/AirportSTAIOCTL.cpp",
+  "category": "inactive-src",
+  "lines": 1531
+ },
+ {
+  "path": "AirportItlwm/AirportVirtualIOCTL.cpp",
+  "category": "inactive-src",
+  "lines": 534
+ },
+ {
+  "path": "AirportItlwm/IOPCIEDeviceWrapper.cpp",
+  "category": "active-src",
+  "lines": 123
+ },
+ {
+  "path": "AirportItlwm/IOPCIEDeviceWrapper.hpp",
+  "category": "header",
+  "lines": 36
+ },
+ {
+  "path": "AirportItlwm/Info.plist",
+  "category": "other",
+  "lines": 61
+ },
+ {
+  "path": "AirportItlwm/WCL/Info.plist",
+  "category": "other",
+  "lines": 80
+ },
+ {
+  "path": "AirportItlwm/WCL/Sequoia-Info.plist",
+  "category": "other",
+  "lines": 87
+ },
+ {
+  "path": "AirportItlwm/WCL/WCL.cpp",
+  "category": "active-src",
+  "lines": 1014
+ },
+ {
+  "path": "AirportItlwm/WCL/WCL.hpp",
+  "category": "header",
+  "lines": 565
+ },
+ {
+  "path": "Caddyfile",
+  "category": "other",
+  "lines": 23
+ },
+ {
+  "path": "LICENSE",
+  "category": "doc",
+  "lines": 339
+ },
+ {
+  "path": "README.md",
+  "category": "doc",
+  "lines": 167
+ },
+ {
+  "path": "github/ISSUE_TEMPLATE/Bug.md",
+  "category": "other",
+  "lines": 0
+ },
+ {
+  "path": "github/workflows/main.yml",
+  "category": "other",
+  "lines": 0
+ },
+ {
+  "path": "gitignore",
+  "category": "other",
+  "lines": 0
+ },
+ {
+  "path": "include/Airport/Apple80211.h",
+  "category": "header",
+  "lines": 30
+ },
+ {
+  "path": "include/Airport/CCDataPipe.h",
+  "category": "header",
+  "lines": 74
+ },
+ {
+  "path": "include/Airport/CCLogPipe.h",
+  "category": "header",
+  "lines": 112
+ },
+ {
+  "path": "include/Airport/CCLogStream.h",
+  "category": "header",
+  "lines": 52
+ },
+ {
+  "path": "include/Airport/CCPipe.h",
+  "category": "header",
+  "lines": 99
+ },
+ {
+  "path": "include/Airport/CCStream.h",
+  "category": "header",
+  "lines": 43
+ },
+ {
+  "path": "include/Airport/IO80211Controller.h",
+  "category": "header",
+  "lines": 385
+ },
+ {
+  "path": "include/Airport/IO80211ControllerV2.h",
+  "category": "header",
+  "lines": 270
+ },
+ {
+  "path": "include/Airport/IO80211InfraInterface.h",
+  "category": "header",
+  "lines": 93
+ },
+ {
+  "path": "include/Airport/IO80211InfraProtocol.h",
+  "category": "header",
+  "lines": 399
+ },
+ {
+  "path": "include/Airport/IO80211Interface.h",
+  "category": "header",
+  "lines": 287
+ },
+ {
+  "path": "include/Airport/IO80211P2PInterface.h",
+  "category": "header",
+  "lines": 120
+ },
+ {
+  "path": "include/Airport/IO80211SkywalkInterface.h",
+  "category": "header",
+  "lines": 200
+ },
+ {
+  "path": "include/Airport/IO80211VirtualInterface.h",
+  "category": "header",
+  "lines": 255
+ },
+ {
+  "path": "include/Airport/IO80211WorkLoop.h",
+  "category": "header",
+  "lines": 37
+ },
+ {
+  "path": "include/Airport/IO80211WorkQueue.h",
+  "category": "header",
+  "lines": 43
+ },
+ {
+  "path": "include/Airport/IOSkywalkEthernetInterface.h",
+  "category": "header",
+  "lines": 88
+ },
+ {
+  "path": "include/Airport/IOSkywalkInterface.h",
+  "category": "header",
+  "lines": 60
+ },
+ {
+  "path": "include/Airport/IOSkywalkLegacyEthernetInterface.h",
+  "category": "header",
+  "lines": 38
+ },
+ {
+  "path": "include/Airport/IOSkywalkLogicalLink.h",
+  "category": "header",
+  "lines": 20
+ },
+ {
+  "path": "include/Airport/IOSkywalkNetworkInterface.h",
+  "category": "header",
+  "lines": 116
+ },
+ {
+  "path": "include/Airport/IOSkywalkNetworkPacket.h",
+  "category": "header",
+  "lines": 54
+ },
+ {
+  "path": "include/Airport/IOSkywalkPacketBufferPool.h",
+  "category": "header",
+  "lines": 62
+ },
+ {
+  "path": "include/Airport/apple80211_ioctl.h",
+  "category": "header",
+  "lines": 1420
+ },
+ {
+  "path": "include/Airport/apple80211_var.h",
+  "category": "header",
+  "lines": 707
+ },
+ {
+  "path": "include/Airport/apple80211_wps.h",
+  "category": "header",
+  "lines": 537
+ },
+ {
+  "path": "include/Airport/apple_private_spi.h",
+  "category": "header",
+  "lines": 74
+ },
+ {
+  "path": "include/Airport/debug.h",
+  "category": "header",
+  "lines": 283
+ },
+ {
+  "path": "include/Airport/macOS15/FaultReporter.h",
+  "category": "header",
+  "lines": 35
+ },
+ {
+  "path": "include/Airport/macOS15/IO80211ControllerV2.h",
+  "category": "header",
+  "lines": 224
+ },
+ {
+  "path": "include/Airport/macOS15/IO80211InfraInterface.h",
+  "category": "header",
+  "lines": 81
+ },
+ {
+  "path": "include/Airport/macOS15/IO80211InfraProtocol.h",
+  "category": "header",
+  "lines": 412
+ },
+ {
+  "path": "include/Airport/macOS15/IO80211SkywalkInterface.h",
+  "category": "header",
+  "lines": 205
+ },
+ {
+  "path": "include/Airport/macOS15/IO80211WorkQueue.h",
+  "category": "header",
+  "lines": 36
+ },
+ {
+  "path": "include/Airport/macOS15/IOSkywalkEthernetInterface.h",
+  "category": "header",
+  "lines": 68
+ },
+ {
+  "path": "include/Airport/macOS15/IOSkywalkInterface.h",
+  "category": "header",
+  "lines": 47
+ },
+ {
+  "path": "include/Airport/macOS15/IOSkywalkNetworkInterface.h",
+  "category": "header",
+  "lines": 95
+ },
+ {
+  "path": "include/ClientKit/Common.h",
+  "category": "header",
+  "lines": 175
+ },
+ {
+  "path": "include/ClientKit/IoctlId.h",
+  "category": "header",
+  "lines": 36
+ },
+ {
+  "path": "include/FwData.h",
+  "category": "header",
+  "lines": 72
+ },
+ {
+  "path": "include/HAL/ItlDriverController.hpp",
+  "category": "header",
+  "lines": 27
+ },
+ {
+  "path": "include/HAL/ItlDriverInfo.hpp",
+  "category": "header",
+  "lines": 39
+ },
+ {
+  "path": "include/HAL/ItlHalService.cpp",
+  "category": "active-src",
+  "lines": 121
+ },
+ {
+  "path": "include/HAL/ItlHalService.hpp",
+  "category": "header",
+  "lines": 92
+ },
+ {
+  "path": "include/HAL/ItlTx.hpp",
+  "category": "header",
+  "lines": 62
+ },
+ {
+  "path": "index.html",
+  "category": "doc",
+  "lines": 895
+ },
+ {
+  "path": "itl80211/Info.plist",
+  "category": "other",
+  "lines": 28
+ },
+ {
+  "path": "itl80211/ItlDma.cpp",
+  "category": "active-src",
+  "lines": 225
+ },
+ {
+  "path": "itl80211/ItlDma.hpp",
+  "category": "header",
+  "lines": 71
+ },
+ {
+  "path": "itl80211/compat.cpp",
+  "category": "active-src",
+  "lines": 419
+ },
+ {
+  "path": "itl80211/compat.h",
+  "category": "header",
+  "lines": 312
+ },
+ {
+  "path": "itl80211/linux/bitfield.h",
+  "category": "header",
+  "lines": 245
+ },
+ {
+  "path": "itl80211/linux/kernel.h",
+  "category": "header",
+  "lines": 263
+ },
+ {
+  "path": "itl80211/linux/random.h",
+  "category": "header",
+  "lines": 33
+ },
+ {
+  "path": "itl80211/linux/types.h",
+  "category": "header",
+  "lines": 352
+ },
+ {
+  "path": "itl80211/openbsd/crypto/aes.c",
+  "category": "active-src",
+  "lines": 877
+ },
+ {
+  "path": "itl80211/openbsd/crypto/aes.h",
+  "category": "header",
+  "lines": 49
+ },
+ {
+  "path": "itl80211/openbsd/crypto/arc4.c",
+  "category": "active-src",
+  "lines": 83
+ },
+ {
+  "path": "itl80211/openbsd/crypto/arc4.h",
+  "category": "header",
+  "lines": 33
+ },
+ {
+  "path": "itl80211/openbsd/crypto/blf.c",
+  "category": "active-src",
+  "lines": 658
+ },
+ {
+  "path": "itl80211/openbsd/crypto/blf.h",
+  "category": "header",
+  "lines": 82
+ },
+ {
+  "path": "itl80211/openbsd/crypto/cast.c",
+  "category": "active-src",
+  "lines": 277
+ },
+ {
+  "path": "itl80211/openbsd/crypto/cast.h",
+  "category": "header",
+  "lines": 22
+ },
+ {
+  "path": "itl80211/openbsd/crypto/castsb.h",
+  "category": "header",
+  "lines": 544
+ },
+ {
+  "path": "itl80211/openbsd/crypto/chacha_private.h",
+  "category": "header",
+  "lines": 220
+ },
+ {
+  "path": "itl80211/openbsd/crypto/chachapoly.c",
+  "category": "active-src",
+  "lines": 112
+ },
+ {
+  "path": "itl80211/openbsd/crypto/chachapoly.h",
+  "category": "header",
+  "lines": 62
+ },
+ {
+  "path": "itl80211/openbsd/crypto/cmac.c",
+  "category": "active-src",
+  "lines": 120
+ },
+ {
+  "path": "itl80211/openbsd/crypto/cmac.h",
+  "category": "header",
+  "lines": 41
+ },
+ {
+  "path": "itl80211/openbsd/crypto/cryptodev.h",
+  "category": "header",
+  "lines": 239
+ },
+ {
+  "path": "itl80211/openbsd/crypto/des_locl.h",
+  "category": "header",
+  "lines": 161
+ },
+ {
+  "path": "itl80211/openbsd/crypto/ecb3_enc.c",
+  "category": "active-src",
+  "lines": 76
+ },
+ {
+  "path": "itl80211/openbsd/crypto/ecb_enc.c",
+  "category": "active-src",
+  "lines": 102
+ },
+ {
+  "path": "itl80211/openbsd/crypto/gmac.c",
+  "category": "active-src",
+  "lines": 169
+ },
+ {
+  "path": "itl80211/openbsd/crypto/gmac.h",
+  "category": "header",
+  "lines": 49
+ },
+ {
+  "path": "itl80211/openbsd/crypto/hmac.c",
+  "category": "active-src",
+  "lines": 192
+ },
+ {
+  "path": "itl80211/openbsd/crypto/hmac.h",
+  "category": "header",
+  "lines": 68
+ },
+ {
+  "path": "itl80211/openbsd/crypto/idgen.c",
+  "category": "active-src",
+  "lines": 140
+ },
+ {
+  "path": "itl80211/openbsd/crypto/idgen.h",
+  "category": "header",
+  "lines": 33
+ },
+ {
+  "path": "itl80211/openbsd/crypto/key_wrap.c",
+  "category": "active-src",
+  "lines": 113
+ },
+ {
+  "path": "itl80211/openbsd/crypto/key_wrap.h",
+  "category": "header",
+  "lines": 38
+ },
+ {
+  "path": "itl80211/openbsd/crypto/md5.c",
+  "category": "active-src",
+  "lines": 238
+ },
+ {
+  "path": "itl80211/openbsd/crypto/md5.h",
+  "category": "header",
+  "lines": 38
+ },
+ {
+  "path": "itl80211/openbsd/crypto/michael.c",
+  "category": "active-src",
+  "lines": 98
+ },
+ {
+  "path": "itl80211/openbsd/crypto/michael.h",
+  "category": "header",
+  "lines": 45
+ },
+ {
+  "path": "itl80211/openbsd/crypto/podd.h",
+  "category": "header",
+  "lines": 66
+ },
+ {
+  "path": "itl80211/openbsd/crypto/poly1305.c",
+  "category": "active-src",
+  "lines": 300
+ },
+ {
+  "path": "itl80211/openbsd/crypto/poly1305.h",
+  "category": "header",
+  "lines": 26
+ },
+ {
+  "path": "itl80211/openbsd/crypto/rijndael.c",
+  "category": "active-src",
+  "lines": 1167
+ },
+ {
+  "path": "itl80211/openbsd/crypto/rijndael.h",
+  "category": "header",
+  "lines": 58
+ },
+ {
+  "path": "itl80211/openbsd/crypto/rmd160.c",
+  "category": "active-src",
+  "lines": 366
+ },
+ {
+  "path": "itl80211/openbsd/crypto/rmd160.h",
+  "category": "header",
+  "lines": 49
+ },
+ {
+  "path": "itl80211/openbsd/crypto/set_key.c",
+  "category": "active-src",
+  "lines": 214
+ },
+ {
+  "path": "itl80211/openbsd/crypto/sha1-pbkdf2.c",
+  "category": "active-src",
+  "lines": 124
+ },
+ {
+  "path": "itl80211/openbsd/crypto/sha1.c",
+  "category": "active-src",
+  "lines": 169
+ },
+ {
+  "path": "itl80211/openbsd/crypto/sha1.h",
+  "category": "header",
+  "lines": 36
+ },
+ {
+  "path": "itl80211/openbsd/crypto/sha2.c",
+  "category": "active-src",
+  "lines": 856
+ },
+ {
+  "path": "itl80211/openbsd/crypto/sha2.h",
+  "category": "header",
+  "lines": 83
+ },
+ {
+  "path": "itl80211/openbsd/crypto/sk.h",
+  "category": "header",
+  "lines": 195
+ },
+ {
+  "path": "itl80211/openbsd/crypto/spr.h",
+  "category": "header",
+  "lines": 195
+ },
+ {
+  "path": "itl80211/openbsd/net80211/CTimeout.cpp",
+  "category": "header",
+  "lines": 128
+ },
+ {
+  "path": "itl80211/openbsd/net80211/_string.c",
+  "category": "active-src",
+  "lines": 43
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211.c",
+  "category": "active-src",
+  "lines": 1596
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211.h",
+  "category": "header",
+  "lines": 2204
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_amrr.c",
+  "category": "active-src",
+  "lines": 140
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_amrr.h",
+  "category": "header",
+  "lines": 71
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_crypto.c",
+  "category": "active-src",
+  "lines": 695
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_crypto.h",
+  "category": "header",
+  "lines": 220
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_crypto_bip.c",
+  "category": "active-src",
+  "lines": 235
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_crypto_ccmp.c",
+  "category": "active-src",
+  "lines": 516
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_crypto_tkip.c",
+  "category": "active-src",
+  "lines": 825
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_crypto_wep.c",
+  "category": "active-src",
+  "lines": 330
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_input.c",
+  "category": "active-src",
+  "lines": 3726
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_ioctl.c",
+  "category": "active-src",
+  "lines": 992
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_ioctl.h",
+  "category": "header",
+  "lines": 468
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_mira.c",
+  "category": "active-src",
+  "lines": 1313
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_mira.h",
+  "category": "header",
+  "lines": 131
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_node.c",
+  "category": "active-src",
+  "lines": 3522
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_node.h",
+  "category": "header",
+  "lines": 724
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_output.c",
+  "category": "active-src",
+  "lines": 2323
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_pae_input.c",
+  "category": "active-src",
+  "lines": 1215
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_pae_output.c",
+  "category": "active-src",
+  "lines": 679
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_priv.h",
+  "category": "header",
+  "lines": 148
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_proto.c",
+  "category": "active-src",
+  "lines": 1794
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_proto.h",
+  "category": "header",
+  "lines": 217
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_ra.c",
+  "category": "active-src",
+  "lines": 954
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_ra.h",
+  "category": "header",
+  "lines": 122
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_radiotap.h",
+  "category": "header",
+  "lines": 227
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_regdomain.c",
+  "category": "active-src",
+  "lines": 197
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_regdomain.h",
+  "category": "header",
+  "lines": 781
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_rssadapt.c",
+  "category": "active-src",
+  "lines": 287
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_rssadapt.h",
+  "category": "header",
+  "lines": 116
+ },
+ {
+  "path": "itl80211/openbsd/net80211/ieee80211_var.h",
+  "category": "header",
+  "lines": 746
+ },
+ {
+  "path": "itl80211/openbsd/net80211/timeout.c",
+  "category": "active-src",
+  "lines": 82
+ },
+ {
+  "path": "itl80211/openbsd/sys/CTimeout.hpp",
+  "category": "header",
+  "lines": 52
+ },
+ {
+  "path": "itl80211/openbsd/sys/_arc4random.h",
+  "category": "header",
+  "lines": 75
+ },
+ {
+  "path": "itl80211/openbsd/sys/_buf.h",
+  "category": "header",
+  "lines": 31
+ },
+ {
+  "path": "itl80211/openbsd/sys/_clock.h",
+  "category": "header",
+  "lines": 30
+ },
+ {
+  "path": "itl80211/openbsd/sys/_if_ether.h",
+  "category": "header",
+  "lines": 299
+ },
+ {
+  "path": "itl80211/openbsd/sys/_if_media.h",
+  "category": "header",
+  "lines": 1086
+ },
+ {
+  "path": "itl80211/openbsd/sys/_ifq.cpp",
+  "category": "active-src",
+  "lines": 73
+ },
+ {
+  "path": "itl80211/openbsd/sys/_ifq.h",
+  "category": "header",
+  "lines": 54
+ },
+ {
+  "path": "itl80211/openbsd/sys/_malloc.h",
+  "category": "header",
+  "lines": 51
+ },
+ {
+  "path": "itl80211/openbsd/sys/_mbuf.cpp",
+  "category": "active-src",
+  "lines": 64
+ },
+ {
+  "path": "itl80211/openbsd/sys/_mbuf.h",
+  "category": "header",
+  "lines": 453
+ },
+ {
+  "path": "itl80211/openbsd/sys/_netstat.h",
+  "category": "header",
+  "lines": 117
+ },
+ {
+  "path": "itl80211/openbsd/sys/_null.h",
+  "category": "header",
+  "lines": 18
+ },
+ {
+  "path": "itl80211/openbsd/sys/_task.cpp",
+  "category": "active-src",
+  "lines": 322
+ },
+ {
+  "path": "itl80211/openbsd/sys/_task.h",
+  "category": "header",
+  "lines": 62
+ },
+ {
+  "path": "itl80211/openbsd/sys/arp.c",
+  "category": "active-src",
+  "lines": 301
+ },
+ {
+  "path": "itl80211/openbsd/sys/arp.h",
+  "category": "header",
+  "lines": 16
+ },
+ {
+  "path": "itl80211/openbsd/sys/endian.h",
+  "category": "header",
+  "lines": 365
+ },
+ {
+  "path": "itl80211/openbsd/sys/pcireg.h",
+  "category": "header",
+  "lines": 744
+ },
+ {
+  "path": "itl80211/openbsd/sys/timeout.h",
+  "category": "header",
+  "lines": 73
+ },
+ {
+  "path": "itl80211/openbsd/sys/tree.h",
+  "category": "header",
+  "lines": 1006
+ },
+ {
+  "path": "itl80211/zutil.c",
+  "category": "active-src",
+  "lines": 40
+ },
+ {
+  "path": "itl80211/zutil.h",
+  "category": "header",
+  "lines": 21
+ },
+ {
+  "path": "itlwm.xcodeproj/project.pbxproj",
+  "category": "build",
+  "lines": 1999
+ },
+ {
+  "path": "itlwm.xcodeproj/xcshareddata/xcschemes/AirportItlwm-Sequoia.xcscheme",
+  "category": "build",
+  "lines": 74
+ },
+ {
+  "path": "itlwm/PrivateSPI.pch",
+  "category": "header",
+  "lines": 30
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-Qu-b0-hr-b0-68.ucode",
+  "category": "firmware",
+  "lines": 10047
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-Qu-b0-jf-b0-68.ucode",
+  "category": "firmware",
+  "lines": 9219
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-Qu-c0-hr-b0-68.ucode",
+  "category": "firmware",
+  "lines": 10043
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-Qu-c0-jf-b0-68.ucode",
+  "category": "firmware",
+  "lines": 9227
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-QuZ-a0-hr-b0-68.ucode",
+  "category": "firmware",
+  "lines": 10029
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-QuZ-a0-jf-b0-68.ucode",
+  "category": "firmware",
+  "lines": 9207
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-cc-a0-68.ucode",
+  "category": "firmware",
+  "lines": 9659
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-so-a0-gf-a0-68.ucode",
+  "category": "firmware",
+  "lines": 11181
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-so-a0-gf-a0.pnvm",
+  "category": "firmware",
+  "lines": 44
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-so-a0-gf4-a0-68.ucode",
+  "category": "firmware",
+  "lines": 11607
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-so-a0-gf4-a0.pnvm",
+  "category": "firmware",
+  "lines": 16
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-so-a0-hr-b0-68.ucode",
+  "category": "firmware",
+  "lines": 10772
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-so-a0-jf-b0-68.ucode",
+  "category": "firmware",
+  "lines": 9595
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-ty-a0-gf-a0-68.ucode",
+  "category": "firmware",
+  "lines": 10937
+ },
+ {
+  "path": "itlwm/firmware/iwlwifi-ty-a0-gf-a0.pnvm",
+  "category": "firmware",
+  "lines": 54
+ },
+ {
+  "path": "itlwm/hal_iwx/ItlIwx.cpp",
+  "category": "active-src",
+  "lines": 13919
+ },
+ {
+  "path": "itlwm/hal_iwx/ItlIwx.hpp",
+  "category": "header",
+  "lines": 496
+ },
+ {
+  "path": "itlwm/hal_iwx/if_iwxreg.h",
+  "category": "header",
+  "lines": 8145
+ },
+ {
+  "path": "itlwm/hal_iwx/if_iwxvar.h",
+  "category": "header",
+  "lines": 788
+ },
+ {
+  "path": "iwlwifi-firmware-license",
+  "category": "doc",
+  "lines": 39
+ },
+ {
+  "path": "research/ax211-audit/00-repo-state.md",
+  "category": "doc",
+  "lines": 158
+ },
+ {
+  "path": "research/ax211-audit/10-iwx-hal-audit.md",
+  "category": "doc",
+  "lines": 273
+ },
+ {
+  "path": "research/ax211-audit/11-airport-integration-audit.md",
+  "category": "doc",
+  "lines": 307
+ },
+ {
+  "path": "research/ax211-audit/12-itl80211-controlplane-audit.md",
+  "category": "doc",
+  "lines": 240
+ },
+ {
+  "path": "research/ax211-audit/13-itl80211-dataplane-audit.md",
+  "category": "doc",
+  "lines": 254
+ },
+ {
+  "path": "research/ax211-audit/20-linux-iwlwifi-analysis.md",
+  "category": "doc",
+  "lines": 325
+ },
+ {
+  "path": "research/ax211-audit/21-ci-artifact-verification.md",
+  "category": "doc",
+  "lines": 120
+ },
+ {
+  "path": "research/ax211-audit/22-reference-forks-analysis.md",
+  "category": "doc",
+  "lines": 186
+ },
+ {
+  "path": "research/ax211-audit/23-environment-access.md",
+  "category": "doc",
+  "lines": 88
+ },
+ {
+  "path": "research/ax211-audit/DOSSIER.md",
+  "category": "doc",
+  "lines": 690
+ },
+ {
+  "path": "research/ax211-audit/README.md",
+  "category": "doc",
+  "lines": 79
+ },
+ {
+  "path": "research/ax211-audit/cross-platform-analysis.md",
+  "category": "doc",
+  "lines": 355
+ },
+ {
+  "path": "research/ax211-audit/evidence-manifest.json",
+  "category": "doc",
+  "lines": 284
+ },
+ {
+  "path": "research/ax211-audit/findings.json",
+  "category": "doc",
+  "lines": 1858
+ },
+ {
+  "path": "research/ax211-audit/hardware-inventory.md",
+  "category": "doc",
+  "lines": 97
+ },
+ {
+  "path": "research/ax211-audit/macos-analysis.md",
+  "category": "doc",
+  "lines": 98
+ },
+ {
+  "path": "research/ax211-audit/tools/OPTIONAL-privileged-list.md",
+  "category": "doc",
+  "lines": 5
+ },
+ {
+  "path": "research/ax211-audit/tools/OPTIONAL-privileged.md",
+  "category": "doc",
+  "lines": 28
+ },
+ {
+  "path": "research/ax211-audit/tools/README.md",
+  "category": "doc",
+  "lines": 92
+ },
+ {
+  "path": "research/ax211-audit/tools/macos-diagnostics.sh",
+  "category": "doc",
+  "lines": 553
+ },
+ {
+  "path": "research/ax211-audit/tools/ubuntu-diagnostics.sh",
+  "category": "doc",
+  "lines": 466
+ },
+ {
+  "path": "research/ax211-audit/ubuntu-analysis.md",
+  "category": "doc",
+  "lines": 84
+ },
+ {
+  "path": "scripts/fw_gen.sh",
+  "category": "build",
+  "lines": 24
+ },
+ {
+  "path": "scripts/load.sh",
+  "category": "build",
+  "lines": 4
+ },
+ {
+  "path": "scripts/unload.sh",
+  "category": "build",
+  "lines": 2
+ },
+ {
+  "path": "scripts/zlib_compress_fw.py",
+  "category": "build",
+  "lines": 98
+ }
+]
