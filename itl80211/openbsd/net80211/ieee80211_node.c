@@ -1333,11 +1333,14 @@ ieee80211_node_choose_bss(struct ieee80211com *ic, int bgscan,
     
     for (; ni != NULL; ni = nextbs) {
         nextbs = RB_NEXT(ieee80211_tree, &ic->ic_tree, ni);
-        if (ni->ni_fails) {
+        if (ni->ni_fails >= 2) {
             /*
              * The configuration of the access points may change
              * during my scan.  So delete the entry for the AP
              * and retry to associate if there is another beacon.
+             * A single transient failure (ni_fails == 1) stays
+             * selectable so one slow association is retried instead
+             * of evicting the AP (upstream OpenBSD tolerates < 2 too).
              */
             if (ni->ni_fails++ > 2)
                 ieee80211_free_node(ic, ni);
@@ -2038,6 +2041,17 @@ ieee80211_ba_del(struct ieee80211_node *ni)
             if (timeout_pending(&ba->ba_gap_to))
                 timeout_del(&ba->ba_gap_to);
             ba->ba_state = IEEE80211_BA_INIT;
+            /* Free the reordering buffer and any MSDUs still parked in it.
+             * This runs on every roam/deauth transition; previously the
+             * buffer was leaked here and simply overwritten by the next
+             * ADDBA (see the equivalent free in ieee80211_delba_request). */
+            if (ba->ba_buf != NULL) {
+                int i;
+                for (i = 0; i < IEEE80211_BA_MAX_WINSZ; i++)
+                    mbuf_freem(ba->ba_buf[i].m);
+                free(ba->ba_buf);
+                ba->ba_buf = NULL;
+            }
         }
     }
     

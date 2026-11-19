@@ -915,13 +915,17 @@ ieee80211_watchdog(struct _ifnet *ifp)
                       "association" : "authentication",
                       ether_sprintf(ic->ic_bss->ni_macaddr));
             ni = ieee80211_find_node(ic, ic->ic_bss->ni_macaddr);
-            if (ni)
-                ni->ni_fails++;
             /* Try more times to join, some drivers will timeout when doing auth/assoc */
             if (ic->ic_state == IEEE80211_S_AUTH && ni && ni->ni_fails < 3) {
+                /* Count this attempt against the retry budget. */
+                ni->ni_fails++;
                 ieee80211_node_join_bss(ic, ni);
                 goto done;
             }
+            /* Giving up: the SCAN transition below (ieee80211_newstate)
+             * already poisons the node exactly once; counting the same
+             * timeout here as well double-incremented ni_fails and made a
+             * single transient association timeout evict the AP. */
             if (ISSET(ic->ic_flags, IEEE80211_F_AUTO_JOIN))
                 ieee80211_deselect_ess(ic);
         }

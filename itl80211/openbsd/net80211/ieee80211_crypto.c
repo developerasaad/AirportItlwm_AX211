@@ -280,7 +280,8 @@ ieee80211_encrypt(struct ieee80211com *ic, mbuf_t m0,
         return NULL;
     }
     
-    XYLog("%s kid=%d cipher=%d\n", __FUNCTION__, k->k_id, k->k_cipher);
+    /* Per-frame logging removed: this fires for every software-encrypted
+     * TX frame (TKIP/WEP) on the command gate. */
 
 	switch (k->k_cipher) {
 	case IEEE80211_CIPHER_WEP40:

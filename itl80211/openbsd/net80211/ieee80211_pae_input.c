@@ -133,7 +133,10 @@ ieee80211_eapol_key_input(struct ieee80211com *ic, mbuf_t m,
     
     /* check key data length */
     paylen = BE_READ_2(key->paylen);
-    if (paylen > totlen - sizeof(*key))
+    /* totlen - sizeof(*key) would wrap to a huge unsigned value when
+     * totlen < sizeof(*key) (short body inside a longer frame), letting
+     * any paylen pass and driving an out-of-bounds parse below. */
+    if (totlen < sizeof(*key) || paylen > totlen - sizeof(*key))
         goto done;
     
     info = BE_READ_2(key->info);
