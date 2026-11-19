@@ -233,3 +233,68 @@ the fixes above.
 - Runtime/hardware: NOT available in this environment. All behavioral
   fixes are source-verified + build-verified only; hardware verification
   on the MSI target remains pending (see final report).
+
+## G. Independent review record
+
+Two adversarial reviewers examined the complete diff
+(6039eb6..31fbdab + the correction commit):
+
+- **REVIEW-1 (HAL + net80211)**: verdicts SOUND for the TX-log removal
+  (variables still used, no -Werror), the `>=` printer guards (arrays
+  are 4/5 entries; IWX_ANT_C was the old OOB value), the fw-load
+  `goto fail1` (fail1 falls through to fail0 — all three DMAs freed),
+  the watchdog single-count (budget identical: 3 AUTH retries; give-up
+  counts once via the SCAN transition; task-drop only via iwx_stop which
+  frees the table anyway), the `>= 2` selection threshold (match_bss has
+  no fails check of its own; eviction still terminates; RUN clears
+  fails), the EAPOL guard (struct is 99 bytes packed; conformant frames
+  always have totlen ≥ 99), and compile sanity (precedents for every
+  declaration).
+  **It found one CRITICAL defect in my initial PNVM change**: I had
+  inverted the polarity — `iwx_read_pnvm()` returns 0 on SUCCESS
+  (including the SKU-matched, data-loaded path), so my early return
+  would have skipped the PNVM doorbell on the actual AX211 target,
+  silently never applying regulatory data. **Corrected**: read_pnvm now
+  tracks whether a section was actually loaded and reports ENOENT for
+  the no-match case; load_pnvm restores the doorbell+wait for the
+  loaded path (byte-identical to the validated baseline on target),
+  skips it only when nothing was loaded, and propagates hard errors.
+  This is exactly the class of error the review process exists to catch.
+  Its R7 concern (ba_del free vs in-flight CTimeout callback) was
+  analyzed and is SOUND in the current design: every ba_del caller is
+  either on the workloop thread or holds the workloop gate without
+  sleeping (iwx_newstate_task re-enters the gate; IOKit timer callbacks
+  hold the workloop gate; ba_del performs no sleep), so no interleaving
+  window exists — and the watchdog-on-workloop fix (CS8) removed the one
+  ungated caller that existed before.
+- **REVIEW-2 (macOS integration)**: verdict SHIP. Confirmed the watchdog
+  path contains no blocking calls (task_add is enqueue-only; the entire
+  join_bss→new_state chain already runs on the main workloop today from
+  RX context — decisive proof of tolerance); the re-arm-via-sender is the
+  canonical pattern; start()/releaseAll failure paths are consistent; the
+  WCL recovery post only fires where intended (assocNotified is set only
+  by a WCL join and reset by the next one; link-up implies port_valid,
+  i.e. the 4-way handshake completed); the struct mirrors the join-path
+  event field-for-field; the rates fix matches the in-tree V1 precedent
+  (raw u8→u32 element copy); en0 RUNNING drops only on real
+  disassociation (bgscan never calls new_state) and the LQM -2 behavior
+  is the designed semantic. Follow-ups applied: gate-serialized watchdog
+  cancel in releaseAll (closes the in-flight re-arm teardown window) and
+  a comment documenting the open-network autonomous-rejoin edge case.
+  It correctly noted the stored CI artifact predates these commits —
+  CI was re-run on the final tree (see final report).
+
+## H. Correction ledger
+
+- Initial CS7 implementation had the read_pnvm polarity inverted
+  (caught by REVIEW-1, corrected same session — see G).
+- An intermediate edit pass introduced tab→space churn in five files;
+  caught by diff review and repaired to byte-precise edits before
+  committing (no whitespace noise in the final history).
+- The proposed mgmt-queue-before-qfullmsk reorder was REJECTED after
+  verifying that management and data frames share one TX ring
+  (iwx_tx:6996-7014): the reorder would drop frames instead of
+  deferring them. Documented as deferred (D-6).
+- Prior-audit claims refuted for the live build (see C.3) were not
+  "fixed" — including setPOWER, which analysis showed cannot reproduce
+  the stated failure in the WCL build.

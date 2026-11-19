@@ -643,7 +643,9 @@ void AirportItlwmSkywalkInterface::handleWCLLink(bool up)
          * posted above; mirror it so WCL (and the menu bar) see the link
          * come back up instead of staying "disconnected" while traffic
          * flows. Re-track joinBSSID in case the driver re-associated to a
-         * different BSSID. */
+         * different BSSID. (On open networks a leftover des_essid can also
+         * produce an autonomous re-join after a failed WCL join; posting
+         * the real state is the truthful report either way.) */
         ieee80211com *ic = fHalService->get80211Controller();
         AirportWCL::LinkStatusEvent event = {};
         if (ic->ic_bss != NULL) {

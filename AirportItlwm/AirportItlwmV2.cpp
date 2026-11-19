@@ -57,8 +57,22 @@ void AirportItlwm::releaseAll()
          * first, leaving a window in which an in-flight watchdog or scan
          * callback touched freed memory. */
         if (watchdogTimer) {
-            watchdogTimer->cancelTimeout();
-            watchdogTimer->disable();
+            /* Cancel through the command gate so an in-flight watchdog
+             * callback (which re-arms itself) completes its re-arm before
+             * we tear the source down; the gate is still installed at this
+             * point. */
+            if (_fCommandGate) {
+                _fCommandGate->runAction(
+                    [](OSObject *, void *arg0, void *, void *, void *) -> IOReturn {
+                        IOTimerEventSource *timer = (IOTimerEventSource *)arg0;
+                        timer->cancelTimeout();
+                        timer->disable();
+                        return kIOReturnSuccess;
+                    }, watchdogTimer);
+            } else {
+                watchdogTimer->cancelTimeout();
+                watchdogTimer->disable();
+            }
             _fWorkloop->removeEventSource(watchdogTimer);
             watchdogTimer->release();
             watchdogTimer = NULL;

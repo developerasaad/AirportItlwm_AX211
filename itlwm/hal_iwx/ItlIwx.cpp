@@ -2058,6 +2058,7 @@ int ItlIwx::
 iwx_read_pnvm(struct iwx_softc *sc)
 {
     int err = 0;
+    int loaded = 0;
     OSData *fwData = NULL;
     struct iwx_fw_info *fw = &sc->sc_fw;
     char fwname_copy[64];
@@ -2136,8 +2137,10 @@ iwx_read_pnvm(struct iwx_softc *sc)
                 sc->sku_id[2] == le32toh(sku_id->data[2])) {
 
                 err = iwx_pnvm_handle_section(sc, data, len);
-                if (!err)
+                if (!err) {
+                    loaded = 1;
                     goto out;
+                }
             } else {
                 XYLog("SKU ID didn't match!\n");
             }
@@ -2148,6 +2151,14 @@ iwx_read_pnvm(struct iwx_softc *sc)
     }
     
     XYLog("PNVM parse done\n");
+    
+    if (!loaded && err == 0) {
+        /* Walked the whole PNVM without a SKU match (or without any
+         * section): nothing was loaded. Tell the caller with ENOENT so it
+         * can skip the doorbell/wait; distinguishable from hard parse or
+         * allocation errors, which keep their errno. */
+        err = ENOENT;
+    }
     
 out:
     OSSafeReleaseNULL(fwData);
@@ -2165,18 +2176,24 @@ iwx_load_pnvm(struct iwx_softc *sc)
     if (!sc->sku_id[0] && !sc->sku_id[1] && !sc->sku_id[2])
         return 0;
     
-    if (!iwx_read_pnvm(sc)) {
-        /* No usable PNVM section for this SKU. Do not ring the PNVM
-         * doorbell and do not wait: without a loaded section the firmware
-         * never sends PNVM_INIT_COMPLETE_NTFY, so the previous code blocked
-         * the command gate for the full 2 s timeout on every init attempt
-         * and then propagated a spurious failure into the init retry loop.
+    err = iwx_read_pnvm(sc);
+    if (err == ENOENT) {
+        /* No PNVM section is available for this SKU: nothing was loaded,
+         * so there is nothing to signal to the firmware. Do not ring the
+         * doorbell and do not wait for PNVM_INIT_COMPLETE_NTFY (the
+         * firmware cannot send it; the previous code blocked the command
+         * gate for the full 2 s timeout on every init attempt and then
+         * propagated a spurious failure into the init retry loop).
          * Continue with the firmware's built-in defaults instead. */
+        iwx_pnvm_free(&sc->sc_fw);
         return 0;
     }
+    if (err)
+        return err;
     
+    /* A section matching our SKU was loaded into pnvm_dram: kick the
+     * doorbell so the firmware picks it up and wait for its ack. */
     sc->sc_init_complete &= ~IWX_PNVM_COMPLETE;
-    /* kick the doorbell */
     if (iwx_nic_lock(sc)) {
         iwx_write_umac_prph(sc, IWX_UREG_DOORBELL_TO_ISR6,
         IWX_UREG_DOORBELL_TO_ISR6_PNVM);
