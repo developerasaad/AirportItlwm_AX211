@@ -98,7 +98,7 @@ the single `ItlIwx` branch; `ItlIwm.hpp`/`ItlIwn.hpp` includes removed; macOS26
 | Xcode native targets | 11 | 1 (+fw_gen aggregate) | -10 |
 | Xcode schemes | 4 | 1 | -3 |
 
-### Reduced build record
+### Reduced build record (predecessor repository)
 
 | Field | Value |
 |---|---|
@@ -115,7 +115,40 @@ the single `ItlIwx` branch; `ItlIwm.hpp`/`ItlIwn.hpp` includes removed; macOS26
 | Sequoia libs | IOSkywalkFamily 1.0, corecapture 1.0.0, IO80211Family 1.5.0 |
 
 Hardware-test handoff and rollback procedure are published with the prerelease
-tagged `v2.4.0-ax211-reduced`.
+tagged `v2.4.0-ax211-reduced` in the predecessor repository.
+
+### Current repository build record (2026-11-19)
+
+First verified build of the imported source in this repository
+(`developerasaad/AirportItlwm_AX211`):
+
+| Field | Value |
+|---|---|
+| Source commit | `0159121` (import root-commit of the source snapshot) |
+| Workflow run | https://github.com/developerasaad/AirportItlwm_AX211/actions/runs/44591987929 |
+| Runner | `macos-15-intel` (Xcode 16.4, MacOSX15.5 SDK) |
+| Configuration | Sequoia / Debug / x86_64 |
+| Kext | `AirportItlwm.kext` (com.zxystd.AirportItlwm, version 2.4.0) |
+| Binary size | 7,623,704 bytes |
+| Binary SHA-256 | `059dcea854948ee2786f9de894e6638ce000721226e07a664cc78bcd5989e589` |
+| Artifact SHA-256 | `a356290dc847a260455074a97695f52b90c5d74d04412a241c18baa7ce029ff1` |
+| AX211 PCI match | `0x51F08086 0x51F18086 0x54F08086 0x7E408086 0x7F708086` |
+
+CI verification (all checks green): x86_64-only Mach-O `MH_KEXT_BUNDLE`
+(lipo: non-fat, x86_64), required OSBundleLibraries present, Sequoia
+IOSkywalkFamily + corecapture linkage, all five iwlwifi-\* Gen3 firmware
+families embedded, all five AX211-family PCI device IDs matched, and the
+artifact SHA-256 independently re-verified after download.
+
+The imported tree is identical to the predecessor snapshot except for the
+README repository banner / record annotations and `.gitignore` sandbox
+overlay additions (non-build files). The binary size differs from the
+predecessor build by 1,392 bytes, attributable to embedded debug-path and
+`GIT_COMMIT` string differences (new workspace path and commit hash).
+
+Hardware verification status is unchanged: the reduced build is **NOT yet
+hardware-verified** on the MSI target. A passing CI build confirms
+compilation and bundle integrity only, not hardware functionality.
 
 ## License
 
